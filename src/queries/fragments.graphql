@@ -1,0 +1,32 @@
+fragment Fixture on Fixture {
+    id
+    competition
+    markets {
+        ...Market
+    }
+    name
+    region
+    startTime
+    status
+    voidReason
+}
+
+fragment Market on Market {
+    id
+    fixtureId
+    inPlay
+    outcomes {
+        ...Outcome
+    }
+    type
+}
+
+fragment Outcome on Outcome {
+    id
+    fixtureId
+    marketId
+    name
+    odds
+    status
+    voidReason
+}

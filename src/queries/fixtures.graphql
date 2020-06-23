@@ -1,0 +1,9 @@
+#import "./fragments.graphql"
+query Fixtures($input: FixturesInput!) {
+    fixtures(input: $input) {
+        fixtures {
+            ...Fixture
+        }
+        cursor
+    }
+}
