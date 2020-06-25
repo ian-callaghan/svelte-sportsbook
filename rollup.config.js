@@ -3,6 +3,7 @@ import resolve from "@rollup/plugin-node-resolve"
 import commonjs from "@rollup/plugin-commonjs"
 import livereload from "rollup-plugin-livereload"
 import { terser } from "rollup-plugin-terser"
+import babel from "rollup-plugin-babel"
 
 const production = !process.env.ROLLUP_WATCH
 
@@ -13,9 +14,6 @@ export default {
         format: "iife",
         name: "app",
         file: "public/build/bundle.js",
-        globals: {
-            "apollo-boost": "",
-        },
     },
     plugins: [
         svelte({
@@ -47,6 +45,34 @@ export default {
         // browser on changes when not in production
         !production && livereload("public"),
 
+        // compile to good old IE11 compatible ES5
+        production &&
+            babel({
+                extensions: [".js", ".mjs", ".html", ".svelte"],
+                runtimeHelpers: true,
+                exclude: ["node_modules/@babel/**", "node_modules/core-js/**"],
+                presets: [
+                    [
+                        "@babel/preset-env",
+                        {
+                            targets: {
+                                ie: "11",
+                            },
+                            useBuiltIns: "usage",
+                            corejs: 3,
+                        },
+                    ],
+                ],
+                plugins: [
+                    "@babel/plugin-syntax-dynamic-import",
+                    [
+                        "@babel/plugin-transform-runtime",
+                        {
+                            useESModules: true,
+                        },
+                    ],
+                ],
+            }),
         // If we're building for production (npm run build
         // instead of npm run dev), minify
         production && terser(),

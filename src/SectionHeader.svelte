@@ -4,7 +4,7 @@
 
 <style>
     div {
-        background: #003366;
+        background: #00284f;
         height: 35px;
         color: #ebebeb;
         text-align: left;

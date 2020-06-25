@@ -1,6 +1,14 @@
 <script>
     export let value = "0.00"
     export let selected = false
+    export let disabled = false
+
+    const handleClick = () => {
+        selected = !selected
+        if (disabled) {
+            selected = false
+        }
+    }
 </script>
 
 <style>
@@ -20,8 +28,12 @@
         color: #ebebeb;
         background: #0b58a0;
     }
+    .disabled {
+        background: #162d46;
+        color: #909090;
+    }
 </style>
 
-<div class:selected>
+<div class:selected class:disabled on:click={handleClick}>
     <span>{value}</span>
 </div>

@@ -1,5 +1,5 @@
 <script>
-
+    export let filled = false
 </script>
 
 <style>
@@ -7,9 +7,13 @@
         padding: 5px 0;
         display: flex;
         width: 58%;
+        z-index: 1;
+    }
+    .filled {
+        background: #001c37;
     }
 </style>
 
-<div>
+<div class:filled>
     <slot />
 </div>
